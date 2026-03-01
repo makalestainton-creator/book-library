@@ -9,6 +9,10 @@ body {
   padding-top: 7rem;
 }
 
+button {
+  outline: none;
+}
+
 header {
   background-color: #fff;
   padding: 1rem 0.8rem;
@@ -56,6 +60,11 @@ input#search {
   background-color: #f3f4f7;
 
   font-size: 1rem;
+}
+
+input#search::placeholder {
+  font-size: .8rem;
+  color: #a0aec0;
 }
 
 input#search:focus {
@@ -107,9 +116,22 @@ input#search:focus + button {
   transform: scale(0.98);
 }
 
-h2 {
-  text-align: center;
+.heading {
   margin-bottom: 2rem;
+  text-align: center;
+}
+
+.heading p {
+  color: #7d8699;
+}
+
+.heading p:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.heading p span {
+  font-weight: bold;
 }
 
 .container {
@@ -128,9 +150,15 @@ h2 {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   border-radius: 0.5rem;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  opacity: 1;
   transition:
     transform 0.3s ease,
-    box-shadow 0.3s ease;
+    box-shadow 0.3s ease,
+    opacity 0.5s ease-out;
+}
+
+.fade {
+  opacity: 0;
 }
 
 .book-card:hover {
@@ -157,7 +185,6 @@ h2 {
 .book-metadata {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  row-gap: 0.5rem;
 }
 
 .book-metadata .book-title {
@@ -181,6 +208,16 @@ h2 {
 
 .book-metadata .value {
   color: #0b0b1b;
+  padding: .5rem .7rem;
+}
+
+.value.read-status {
+  border-radius: .4rem;
+  transition: background-color .3s ease;
+}
+
+.selected-value {
+  background-color: #e9f2fa;
 }
 
 .book-buttons {
@@ -241,19 +278,45 @@ h2 {
   display: none;
 }
 
-form {
-  position: fixed;
-  top: 50%;
-  left: 50%;
+.active-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  transform: translate(-50%, -50%);
+.close-button {
+  z-index: 1001;
+  position: absolute;
+  top: -1.5rem;
+  right: -1.5rem;
+
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  padding: .3rem;
+  outline: none;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-button svg {
+  fill: #c50f09;
+}
+
+.close-button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+form {
+  position: relative;
 
   background-color: #fff;
   padding: 1.3rem;
   border-radius: 1.3rem;
   z-index: 1001;
-
-  display: none;
 }
 
 .active {
@@ -440,7 +503,7 @@ form .add-book:active {
 
 @media (min-width: 700px) {
   .container {
-    max-width: 80vw;
+    max-width: 70vw;
     grid-template-columns: repeat(auto-fit, minmax(350px, 450px));
   }
 

@@ -45,7 +45,7 @@
       </div>
 
       <div class="search">
-        <input type="text" name="search" id="search" />
+        <input type="text" name="search" id="search" placeholder="Search by author, title or category"/>
         <button type="button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -64,110 +64,66 @@
     </header>
 
     <main>
-      <h2>Your Book Shelf</h2>
-
-      <div class="container">
-        <div class="book-card">
-          <div class="category-container">
-            <div class="category">
-              <p>Fiction</p>
-            </div>
-          </div>
-          <div class="book-metadata">
-            <p class="label">Author:</p>
-            <p class="value">C.M Muturi</p>
-            <p class="label">Title:</p>
-            <p class="value book-title">Understanding Mathematics</p>
-            <p class="label">Pages:</p>
-            <p class="value">200</p>
-            <p class="label">Status:</p>
-            <p class="value">Read</p>
-          </div>
-          <div class="book-buttons">
-            <button type="button" class="toggle-status">Mark as Unread</button>
-            <button type="button" class="remove">Remove</button>
-          </div>
-        </div>
-        <div class="book-card">
-          <div class="category-container">
-            <div class="category">
-              <p>Fiction</p>
-            </div>
-          </div>
-          <div class="book-metadata">
-            <p class="label">Author:</p>
-            <p class="value">C.M Muturi</p>
-            <p class="label">Title:</p>
-            <p class="value book-title">Understanding Mathematics</p>
-            <p class="label">Pages:</p>
-            <p class="value">200</p>
-            <p class="label">Status:</p>
-            <p class="value">Read</p>
-          </div>
-          <div class="book-buttons">
-            <button type="button" class="toggle-status">Mark as Unread</button>
-            <button type="button" class="remove">Remove</button>
-          </div>
-        </div>
-        <div class="book-card">
-          <div class="category-container">
-            <div class="category">
-              <p>Fiction</p>
-            </div>
-          </div>
-          <div class="book-metadata">
-            <p class="label">Author:</p>
-            <p class="value">C.M Muturi</p>
-            <p class="label">Title:</p>
-            <p class="value book-title">Understanding Mathematics</p>
-            <p class="label">Pages:</p>
-            <p class="value">200</p>
-            <p class="label">Status:</p>
-            <p class="value">Read</p>
-          </div>
-          <div class="book-buttons">
-            <button type="button" class="toggle-status">Mark as Unread</button>
-            <button type="button" class="remove">Remove</button>
-          </div>
-        </div>
+      <div class="heading">
+        <h2>Your Book Shelf</h2>
+        <p class="heading-illustration">
+          <span class="js-read"></span> read
+          <span class="js-unread"></span> unread
+        </p>
       </div>
+
+      <div class="container js-container"></div>
     </main>
-    <div class="overlay js-overlay"></div>
-    <form>
-      <div class="dialogue-grid">
-        <div class="form-row">
-          <label for="author">Author:</label>
-          <input type="text" name="author" id="author" required />
+    <div class="overlay js-overlay">
+      <form>
+        <div class="dialogue-grid">
+          <div class="form-row">
+            <label for="author">Author:</label>
+            <input type="text" name="author" id="author" required />
+          </div>
+          <div class="form-row">
+            <label for="title">Book Title:</label>
+            <input type="text" name="title" id="title" required />
+          </div>
+          <div class="form-row">
+            <label for="pages">Number of pages:</label>
+            <input type="text" name="pages" id="pages" required />
+          </div>
+          <div class="form-row">
+            <label for="category">Category:</label>
+            <select name="category" id="category">
+              <button>
+                <selectedcontent></selectedcontent>
+              </button>
+              <option value="Romance">Romance</option>
+              <option value="Mystery">Mystery</option>
+              <option value="Science">Science</option>
+              <option value="Fiction">Fiction</option>
+              <option value="History">History</option>
+            </select>
+          </div>
         </div>
         <div class="form-row">
-          <label for="title">Book Title:</label>
-          <input type="text" name="title" id="title" required />
+          <input type="checkbox" name="read" id="read" checked />
+          <label for="read">I've read the book</label>
         </div>
-        <div class="form-row">
-          <label for="pages">Number of pages:</label>
-          <input type="text" name="pages" id="pages" required />
-        </div>
-        <div class="form-row">
-          <label for="category">Category:</label>
-          <select name="category" id="category">
-            <button>
-              <selectedcontent></selectedcontent>
-            </button>
-            <option value="Romance">Romance</option>
-            <option value="Mystery">Mystery</option>
-            <option value="Science">Science</option>
-            <option value="Fiction">Fiction</option>
-            <option value="History">History</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <input type="checkbox" name="read" id="read" checked />
-        <label for="read">I've read the book</label>
-      </div>
-      <button type="submit" class="add-book js-add-book">Add Book</button>
-    </form>
+        <button type="submit" class="add-book js-add-book">Add Book</button>
+        <button class="close-button js-close-button" type="button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            height="24"
+            width="24"
+          >
+            <title>close dialogue(Keyboard "Esc")</title>
+            <path
+              d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+            />
+          </svg>
+        </button>
+      </form>
+    </div>
 
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
   </body>
 </html>
