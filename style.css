@@ -145,6 +145,17 @@ input#search:focus + button {
   max-width: 60%;
 }
 
+.no-result {
+  text-align: center;
+  color: #7d8699;
+  font-size: 1.3rem;
+  margin-left: 60%;
+  margin-right: auto;
+  min-width: 7rem;
+  word-break: keep-all;
+  width: 100%;
+}
+
 .book-card {
   background-color: #fff;
   padding: 1rem 1.5rem 1.5rem 1.5rem;

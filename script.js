@@ -49,12 +49,7 @@ if (myLibrary.length === 0) {
 }
 
 function displayEmptyNotification(message) {
-  const div = document.createElement("div");
-  div.textContent = message;
-  document.querySelector("main").appendChild(div);
-  div.style.textAlign = "center";
-  div.style.fontSize = "1.3rem";
-  div.style.color = "#7d8699";
+  document.querySelector(".js-container").innerHTML = `<p class="no-result">${message}</p>`;
 }
 
 updateBookHistory();
@@ -84,13 +79,15 @@ document
     });
   });
 
-function Book(author, title, category, pages, readStatus, id) {
-  this.author = author;
-  this.title = title;
-  this.category = category;
-  this.pages = pages;
-  this.readStatus = readStatus;
-  this.id = id;
+class Book {
+  constructor(author, title, category, pages, readStatus, id) {
+    this.author = author;
+    this.title = title;
+    this.category = category;
+    this.pages = pages;
+    this.readStatus = readStatus;
+    this.id = id;
+  }
 }
 
 function addBookToLibrary(author, title, category, pages, readStatus, id) {
@@ -192,13 +189,12 @@ function closeFormDialogue() {
   });
 }
 
-document.getElementById("search").addEventListener("change", (event) => {
+document.getElementById("search").addEventListener("input", (event) => {
   const searchTerm = document
     .getElementById("search")
     .value.trim()
     .toLowerCase();
   searchBook(searchTerm);
-  event.target.value = "";
 });
 
 document.querySelector(".js-add-book").addEventListener("click", (e) => {
