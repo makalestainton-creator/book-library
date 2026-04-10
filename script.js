@@ -49,7 +49,8 @@ if (myLibrary.length === 0) {
 }
 
 function displayEmptyNotification(message) {
-  document.querySelector(".js-container").innerHTML = `<p class="no-result">${message}</p>`;
+  document.querySelector(".js-container").innerHTML =
+    `<p class="no-result">${message}</p>`;
 }
 
 updateBookHistory();
@@ -92,21 +93,6 @@ class Book {
 
 function addBookToLibrary(author, title, category, pages, readStatus, id) {
   const book = new Book(author, title, category, pages, readStatus, id);
-
-  if (!book.author || !book.title || !book.category || !book.pages) {
-    alert("Please fill all the fields!");
-    return;
-  }
-
-  if (Number(book.pages) !== Number(book.pages)) {
-    alert("Pages can only be numbers!");
-    return;
-  }
-
-  if (Number(book.pages) < 10 || Number(book.pages) >= 1000) {
-    alert("Is that a book?");
-    return;
-  }
 
   myLibrary.push(book);
   saveToStorage();
@@ -179,14 +165,14 @@ function renderFormDialogue() {
   document.querySelector(".js-overlay").classList.add("active-overlay");
 }
 
+document.querySelector(".js-overlay").addEventListener("click", (e) => {
+  if (e.target === e.currenTarget) {
+    closeFormDialogue();
+  }
+});
+
 function closeFormDialogue() {
-  const overlay = document.querySelector(".js-overlay");
-  overlay.classList.remove("active-overlay");
-  overlay.addEventListener("click", (e) => {
-    if (e.target === overlay) {
-      overlay.style.display = "none";
-    }
-  });
+  document.querySelector(".js-overlay").classList.remove("active-overlay");
 }
 
 document.getElementById("search").addEventListener("input", (event) => {
@@ -197,16 +183,69 @@ document.getElementById("search").addEventListener("input", (event) => {
   searchBook(searchTerm);
 });
 
-document.querySelector(".js-add-book").addEventListener("click", (e) => {
+const authorInput = document.getElementById("author");
+const titleInput = document.getElementById("title");
+const pagesInput = document.getElementById("pages");
+const categoryInput = document.getElementById("category");
+
+[authorInput, titleInput, pagesInput].forEach((input) => {
+  input.addEventListener("input", () => {
+    input.setCustomValidity("");
+  });
+});
+
+document.querySelector("form").addEventListener("submit", (e) => {
   e.preventDefault();
-  const author = document.getElementById("author").value;
-  const title = document.getElementById("title").value;
-  const category = document.getElementById("category").value;
-  const pages = document.getElementById("pages").value;
+  if (authorInput.validity.valueMissing) {
+    authorInput.setCustomValidity("Please provide an author");
+    authorInput.reportValidity();
+    return;
+  } else {
+    authorInput.setCustomValidity("");
+  }
+
+  if (titleInput.validity.valueMissing) {
+    titleInput.setCustomValidity("Please provide a book title");
+    titleInput.reportValidity();
+    return;
+  } else {
+    titleInput.setCustomValidity("");
+  }
+
+  if (pagesInput.validity.valueMissing) {
+    pagesInput.setCustomValidity("Please provide the number of pages");
+    pagesInput.reportValidity();
+  } else {
+    pagesInput.setCustomValidity("");
+  }
+
+  if (isNaN(pagesInput.value) || pagesInput.value.trim() === "") {
+    pagesInput.setCustomValidity("Pages must be numbers");
+    pagesInput.reportValidity();
+    return;
+  } else {
+    pagesInput.setCustomValidity("");
+  }
+
+  if (Number(pagesInput.value) < 10 || Number(pagesInput.value) > 1000) {
+    pagesInput.setCustomValidity("Pages must be between 10 and 1000");
+    pagesInput.reportValidity();
+    return;
+  } else {
+    pagesInput.setCustomValidity("");
+  }
+
+  const author = authorInput.value;
+  const title = titleInput.value;
+  const category = categoryInput.value;
+  const pages = pagesInput.value;
   const id = nanoid();
+
   const checkBox = document.getElementById("read");
   const readStatus = checkBox.checked ? "Read" : "Unread";
+
   addBookToLibrary(author, title, category, pages, readStatus, id);
+
   renderLibrary(myLibrary);
   updateBookHistory();
 });
